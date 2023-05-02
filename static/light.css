@@ -1,0 +1,32 @@
+body {
+  background-color: #FFFFFF;
+  color: #333333;
+}
+
+.card {
+  background-color: #F8F9FA;
+  border-color: #DEE2E6;
+}
+
+.list-group-item {
+  background-color: #FFFFFF;
+  border-color: #DEE2E6;
+}
+
+.list-group-item-success {
+  background-color: #D4EDDA;
+  border-color: #C3E6CB;
+  color: #155724;
+}
+
+.btn-primary {
+  color: #FFFFFF;
+  background-color: #007BFF;
+  border-color: #007BFF;
+}
+
+.btn-primary:hover {
+  color: #FFFFFF;
+  background-color: #0069D9;
+  border-color: #0062CC;
+}

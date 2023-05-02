@@ -1,0 +1,46 @@
+/* Center the container */
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+/* Style for the title */
+h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Style for the new task form */
+.form-control {
+  border-radius: 0;
+  font-size: 1.5rem;
+}
+
+.btn-primary {
+  border-radius: 0;
+  font-size: 1.5rem;
+}
+
+/* Style for the task list */
+.table {
+  font-size: 1.5rem;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+/* Style for the delete button */
+.btn-danger {
+  font-size: 1.5rem;
+}
+
+/* Style for the checkbox */
+.form-check-input {
+  width: 2rem;
+  height: 2rem;
+  margin-top: 0.75rem;
+  margin-left: 0.25rem;
+  margin-right: 0.5rem;
+}

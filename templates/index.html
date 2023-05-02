@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Task Tracker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link id="stylesheet" rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dark.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-between mt-3 mb-3">
+        <div class="col-md-3">
+          <button id="darkmode-toggle" class="btn btn-sm btn-light"></button>
+        </div>
+        <div class="col-md-6 text-center">
+          <h3 class="mb-0">Task Tracker</h3>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <form method="POST" action="{{ url_for('add_task') }}">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Add a new task" name="new_task_name" required>
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Add Task</button>
+                  </div>
+                </div>
+              </form>
+              {% if todo_list %}
+              <ul class="list-group">
+                {% for task in todo_list %}
+                <li class="list-group-item{% if task.completion_status == 'complete' %} list-group-item-success{% endif %}">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <form method="POST" action="{{ url_for('complete_task') }}" class="form-check-inline">
+                      <input type="hidden" name="task_index" value="{{ loop.index0 }}">
+                      <input type="checkbox" class="form-check-input" name="completion_status" {% if task.completion_status == 'complete' %}checked{% endif %}>
+                    </form>
+                    <div class="task-name">{{ task.task_name }}</div>
+                    <form method="POST" action="{{ url_for('delete_task') }}">
+                      <input type="hidden" name="task_index" value="{{ loop.index0 }}">
+                      <button type="submit" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </form>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <div class="alert alert-info text-center" role="alert">
+                No tasks added yet.
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script>
+		$(function() {
+			// Set up the dark mode toggle button
+			var stylesheet = $("#stylesheet");
+			var darkmode_toggle = $("#darkmode-toggle");
+			var icon = $("<i></i>").addClass("fas fa-sun");
+			darkmode_toggle.prepend(icon);
+			darkmode_toggle.append("<span>Light Mode</span>");
+			darkmode_toggle.click(function() {
+			  if (stylesheet.attr("href") == "{{ url_for('static', filename='style.css') }}") {
+				stylesheet.attr("href", "{{ url_for('static', filename='dark.css') }}");
+				darkmode_toggle.find("span").text("Light Mode");
+				darkmode_toggle.find("i").removeClass("fa-moon").addClass("fa-sun");
+			  } else {
+				stylesheet.attr("href", "{{ url_for('static', filename='style.css') }}");
+				darkmode_toggle.find("span").text("Dark Mode");
+				darkmode_toggle.find("i").removeClass("fa-sun").addClass("fa-moon");
+			  }
+			});
+		});
+	</script>
+  </body>
+</html>
