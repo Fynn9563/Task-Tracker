@@ -27,7 +27,7 @@ h1 {
   font-size: 1.5rem;
 }
 
-.completed {
+.task-name.completed {
   text-decoration: line-through;
 }
 

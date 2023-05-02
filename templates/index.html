@@ -40,7 +40,7 @@
                       <input type="hidden" name="task_index" value="{{ loop.index0 }}">
                       <input type="checkbox" class="form-check-input" name="completion_status" {% if task.completion_status == 'complete' %}checked{% endif %}>
                     </form>
-                    <div class="task-name">{{ task.task_name }}</div>
+                    <div class="task-name{% if task.completion_status == 'complete' %} completed{% endif %}">{{ task.task_name }}</div>
                     <form method="POST" action="{{ url_for('delete_task') }}">
                       <input type="hidden" name="task_index" value="{{ loop.index0 }}">
                       <button type="submit" class="close" aria-label="Close">
@@ -84,6 +84,20 @@
 			  }
 			});
 		});
+	</script>
+	<script>
+	  $(function() {
+		// Toggle the completed class on task completion checkbox change
+		$('input[name="completion_status"]').change(function() {
+		  if ($(this).is(':checked')) {
+			$(this).closest('.list-group-item').addClass('list-group-item-success');
+			$(this).siblings('.task-name').addClass('completed');
+		  } else {
+			$(this).closest('.list-group-item').removeClass('list-group-item-success');
+			$(this).siblings('.task-name').removeClass('completed');
+		  }
+		});
+	  });
 	</script>
   </body>
 </html>
